@@ -12,9 +12,11 @@ export const useUserStore = defineStore(
     const maxTryCreateConversationIdCount = 10;
     const userTokenCookieName = '_U';
     const userKievRPSSecAuthCookieName = 'KievRPSSecAuth';
+    const userRwBfCookieName = '_RwBf';
     const randIpCookieName = 'BingAI_Rand_IP';
     const authKeyCookieName = 'BingAI_Auth_Key';
     const historyEnable = ref(true);
+    const themeMode = ref('auto');
 
     const sysConfig = ref<SysConfig>();
 
@@ -64,10 +66,12 @@ export const useUserStore = defineStore(
     const checkUserToken = () => {
       if (historyEnable.value) {
         CIB.vm.sidePanel.isVisibleDesktop = true;
-        // 设置历史记录侧边栏的高度为 70vh
-        document.querySelector('cib-serp')?.shadowRoot?.querySelector('cib-side-panel')?.shadowRoot?.querySelector('div.scroller')?.setAttribute('style', 'height: 70vh');
+        document.querySelector('cib-serp')?.setAttribute('alignment', 'left');
+        // 设置历史记录侧边栏的高度为 90vh
+        document.querySelector('cib-serp')?.shadowRoot?.querySelector('cib-side-panel')?.shadowRoot?.querySelector('div.scroller')?.setAttribute('style', 'height: 90vh');
       } else {
         CIB.vm.sidePanel.isVisibleDesktop = false;
+        document.querySelector('cib-serp')?.setAttribute('alignment', 'center');
       }
       const token = getUserToken();
       if (!token) {
@@ -75,6 +79,7 @@ export const useUserStore = defineStore(
         CIB.config.features.enableGetChats = false;
         CIB.vm.sidePanel.isVisibleMobile = false;
         CIB.vm.sidePanel.isVisibleDesktop = false;
+        document.querySelector('cib-serp')?.setAttribute('alignment', 'center');
       }
       // 创建会话id
       tryCreateConversationId();
@@ -110,12 +115,21 @@ export const useUserStore = defineStore(
     };
 
     const getUserKievRPSSecAuth = () => {
-        const userCookieVal = cookies.get(userKievRPSSecAuthCookieName) || '';
-        return userCookieVal;
+      const userCookieVal = cookies.get(userKievRPSSecAuthCookieName) || '';
+      return userCookieVal;
     };
 
     const saveUserKievRPSSecAuth = (token: string) => {
-        cookies.set(userKievRPSSecAuthCookieName, token, 7 * 24 * 60, '/');
+      cookies.set(userKievRPSSecAuthCookieName, token, 7 * 24 * 60, '/');
+    };
+
+    const getUserRwBf = () => {
+      const userCookieVal = cookies.get(userRwBfCookieName) || '';
+      return userCookieVal;
+    };
+
+    const saveUserRwBf = (token: string) => {
+      cookies.set(userRwBfCookieName, token, 7 * 24 * 60, '/');
     };
 
     const resetCache = async () => {
@@ -123,6 +137,7 @@ export const useUserStore = defineStore(
       cookies.set(randIpCookieName, '', -1);
       cookies.set(authKeyCookieName, '', -1);
       cookies.set(userKievRPSSecAuthCookieName, '', -1);
+      cookies.set(userRwBfCookieName, '', -1);
       await clearCache();
     };
 
@@ -136,14 +151,17 @@ export const useUserStore = defineStore(
       setAuthKey,
       getUserKievRPSSecAuth,
       saveUserKievRPSSecAuth,
+      getUserRwBf,
+      saveUserRwBf,
       historyEnable,
+      themeMode,
     };
   },
   {
     persist: {
       key: 'user-store',
       storage: localStorage,
-      paths: ['historyEnable'],
+      paths: ['historyEnable', 'themeMode'],
     },
   }
 );
