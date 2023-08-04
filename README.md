@@ -29,7 +29,6 @@
     - [Release](#Release)
     - [Railway](#Railway)
     - [Vercel](#Vercel)
-    - [Render](#Render)
   - [部署聊天服务器](#部署聊天服务器)
   - [TODO](#TODO)
 
@@ -83,12 +82,6 @@
 - https://bing-vercel.vcanbb.top
 
 - https://go-proxy-bingai-adams549659584.vercel.app
-
-### Render 搭建
-
-- https://bing-render.vcanbb.top
-
-- https://go-proxy-bingai.onrender.com
 
 ## 设置用户
 
@@ -197,14 +190,6 @@ RAILWAY_DOCKERFILE_PATH=docker/Dockerfile
 ![Vercel 一键部署](./docs/img/vercel-1.png)
 
 ![Vercel 域名](./docs/img/vercel-2.png)
-
-### Render
-
-一键部署，点这里 => [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/adams549659584/go-proxy-bingai)
-
-![Render 一键部署](./docs/img/render-1.png)
-
-![Render 域名](./docs/img/render-2.png)
 
 ## 部署聊天服务器
 
