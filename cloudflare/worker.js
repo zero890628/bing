@@ -1,13 +1,13 @@
 import { brotli_decode } from "./bjs.js"
 // 同查找 _U 一样, 查找 KievRPSSecAuth 的值并替换下方的xxx
-const KievRPSSecAuth = 'FABaBBRaTOJILtFsMkpLVWSG6AN6C/svRwNmAAAEgAAACATNpEmLgQ4qGAQ+e7ZMV2Z+punmttfw9XVIQuPTIJ5RkYrwBw7gG1qKpwE3XjlmfEnNklGuvH2NT/SyPMBKgOwoA8laOV3nMDNyo3wCg9oLQg6C7W9yEFhfFWNEozp8Fq7h9s9+h7EEAmMq1QdIGuvZKMzL3Zc3MQuEBSHK92ZGLHAtsfHVrhqdYjdr//N2/PsIORY2rUGYZEGztisYGVEdtlQTs0ERZdoKR7XTrSuDJuRvLkFdvnIgIo8408LrliYOJZz1Iqo9Xo2PgDEdOiJcrTst5FCwyEtmfpEqZEQhyL/iBTdxu36+qMxFAgAk6gjAvYa5WTP/zqHs2dPm69Rkpi97gr/VvBSMXfv0IhhHaoeME7/VBoMHfzXkyv8uC1K76cd3Rf/d3wYHrxKtyJFP3fLck/XYqM+X1uNhO6issmRgVJApVcq5K4VMwL8mqixMpRp3Y+yt3iyC2A1DPCh24OerieJZU17gRxfoEOhzzCVh+RX3NsFctXMYzfwy1eHwSV7Z4r3nMJz9jR0wi96vaP6VVuFNjiR0Dx4F4qzKbNKTcnyTd9NaPrQBIe06xkc47eimK5bxzLWgxFcN79pCuSfM4qClrIQKOBNxH5y4CdMGcqDYNmmm4QdPT3l8ai9HKnhayuRv+F5PAFE1C4/R1wE6uGCDx7qrvZRL2DaCymChLWOtwuXQiz6mAFS8GmJRNyuQQ1011Ny4CBT+ZGXfPiXYpeZFPk8PfnB3hrD++9DBsb9jzkvwORmUFfvTDo/KAYU9Gh+QT+tCwWBcFOpHONzr093gXueUYUy+XR1pJBjn1/J+nqC0FwjOBOie2t6Ggt9Xin0d/gqk3v7TmJjYG/9Px7R8eZmj6TMsEfwYuecNJro2Jb5bI/lbzjsVflWQRTo3ayf4pdB9QZrlerGDuslm6DszTIkbvFil7UMRSXeE/CY7b6hzaQcLhz+UCzNO19NhzyRnM+sxqxtROhIW50wFfeMgJMoWSLPFQ0AdF2TpuGAiGmzYTE7ZaR7SdMVwO3x3T/9LRBKU5+888TKvuBCqoKJtFpdAFcCuxS6OzY7nJrfRfTaQv5yvmrFSB77eu1QrzCvQik4m3bPy8OAkGgrCSwmh6UA1vvaqlfz/Wv0CiBjRQn3cQpQV4ojD00squ5IMOi3y03edaK1Fs8PPc1t+/qHnHrq4Q87+Xe63LSlLKHZrAWlAksqt/t2HqhEy+Z6amA4OFim4MXFvb8AlFO6Il5O81xTdbDHuU0wZtm5cg0xZL+ARo0hGR//jwd/Bvu3Ast7trB4xUrvpQf4MZnv9f3velPw+eHrs1fLfQQMDQ4Lu0JD7acfsVQlWvp6ZQGZulaeWI6VOSzyBVt5ul4tpiBS3zTsUyMp01KQXWIX+q+iPnHKnwnmfId4Heb3ZFAD4Bi3LtO2EiVptljZaOUT0diW0Lw==';
-const _RwBf = 'r=1&ilt=3&ihpd=2&ispd=1&rc=483&rb=483&gb=0&rg=0&pc=483&mtu=0&rbb=0.0&g=0&cid=&clo=0&v=5&l=2023-10-24T07:00:00.0000000Z&lft=0001-01-01T00:00:00.0000000&aof=0&o=0&p=bingcopilotwaitlist&c=MY00IA&t=338&s=2023-02-13T02:37:54.0098952+00:00&ts=2023-10-25T04:30:05.5265861+00:00&rwred=0&wls=2&wlb=0&lka=0&lkt=0&aad=0&TH=&W=1&mta=0&e=ROOQMlu0qQf4ABUUfNCMYJUUJMvub2mJ3fewWYX0N4C4pDUDekvW0ObCzzKekHjUVmJqCNcN8jcUuZRJlluxE8iyHlLKxa7Y2oyJSOi_X14&A=4D49EDECEC7F9538B1331136FFFFFFFF';
+const KievRPSSecAuth = '';
+const _RwBf = '';
 const MUID = '';
 const _U = '';
 
 const WEB_CONFIG = {
   WORKER_URL: '', // 请保持默认的''，不要配置该项。
-  HOOK_ON: false, // 是否开启ajax/fetch拦截，此功能为预留特性，如无需要请保持false。
+  HOOK_ON: false, // 是否开启ajax/fetch拦截，此功能为预留特性，如无需要请保持 false。
 };
 
 const SYDNEY_ORIGIN = 'https://sydney.bing.com';
@@ -134,8 +134,8 @@ const rewriteBody = async (res) => {
        .on('body', {
          element(element) {
            element.append(`
-           <script src="https://ajax.b1ghawk.xyz/dist/ajaxhook.min.js"></script>
-           <script src="https://ajax.b1ghawk.xyz/dist/fetchhook.min.js"></script>
+           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/ajaxhook.core.min.js"></script>
+           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/fetchhook.min.js"></script>
 
            <script>
            
