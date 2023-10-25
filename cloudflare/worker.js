@@ -134,8 +134,14 @@ const rewriteBody = async (res) => {
        .on('body', {
          element(element) {
            element.append(`
-           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/ajaxhook.core.min.js"></script>
-           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/fetchhook.min.js"></script>
+           <!-- github不允许外联
+           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/ajaxhook.core.min.js" type="text/javascript"></script>
+           <script src="https://raw.githubusercontent.com/goss1p/go-proxy-bingai/master/web/assets/hook/fetchhook.min.js" type="text/javascript"></script>
+           -->
+
+           <!-- 所以先放到了其他的地方，正常应该丢到cdn上 -->
+           <script src="https://ajax.b1ghawk.xyz/dist/ajaxhook.min.js"></script>
+           <script src="https://ajax.b1ghawk.xyz/dist/fetchhook.min.js"></script>
 
            <script>
            
