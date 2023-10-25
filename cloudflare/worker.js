@@ -6,7 +6,7 @@ const MUID = '';
 const _U = '';
 
 const WEB_CONFIG = {
-  WORKER_URL: '', // 如无特殊需求请，保持为''
+  WORKER_URL: '', // 请保持默认的''，不要配置该项。
 };
 
 const SYDNEY_ORIGIN = 'https://sydney.bing.com';
@@ -130,16 +130,21 @@ const rewriteBody = async (res) => {
     let body = res.body;
      if (content_type.startsWith("text/html")) {
        body = res.body;
-     } else if (res.url.endsWith("br.js") && content_encoding == 'br') {
-      const decodedContent = new TextDecoder("utf-8").decode(brotli_decode(new Int8Array(await res.clone().arrayBuffer())));
-      if (decodedContent) {
-        // @ts-ignore
-        body = decodedContent.replaceAll("www.bing.com", WEB_CONFIG.WORKER_URL.replace("http://", "").replace("https://", ""));
-        encoding = 'gzip';
+     } else if (res.url.endsWith("js")) {
+      if (res.url.includes('/rp/')) {
+        let decodedContent = null;
+        if (content_encoding == 'br') {
+          decodedContent = new TextDecoder("utf-8").decode(brotli_decode(new Int8Array(await res.clone().arrayBuffer())));
+          encoding = 'gzip';
+        } else {
+          decodedContent = new TextDecoder("utf-8").decode(new Int8Array(await res.clone().arrayBuffer()));
+        }
+        if (decodedContent) {
+          // @ts-ignore
+          body = decodedContent.replaceAll("www.bing.com", WEB_CONFIG.WORKER_URL.replace("http://", "").replace("https://", ""));
+        }
       }
     }
-   //console.log(res.url);
-   //console.log({body, encoding});
    return {body, encoding};
 }
 
