@@ -192,7 +192,9 @@ export default {
     if (WEB_CONFIG.WORKER_URL == '') {
         WEB_CONFIG.WORKER_URL = currentUrl.origin;
     }
-    // if (currentUrl.pathname === '/' || currentUrl.pathname.startsWith('/github/')) {
+    if (currentUrl.pathname.endsWith('/web/') || currentUrl.pathname.endsWith('/web')) {
+      return Response.redirect(currentUrl.origin, 301);
+    }
     if (currentUrl.pathname === '/' || currentUrl.pathname.indexOf('/web/') === 0) {
       return home(currentUrl.pathname);
     }
