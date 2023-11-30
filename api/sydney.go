@@ -4,6 +4,8 @@ import (
 	"adams549659584/go-proxy-bingai/api/helper"
 	"adams549659584/go-proxy-bingai/common"
 	"net/http"
+	"os"
+	"net/url" 
 )
 
 var SydneyURL = os.Getenv("SYDNEY_PROXY_DM")
