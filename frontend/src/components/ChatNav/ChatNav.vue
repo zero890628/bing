@@ -46,6 +46,7 @@ const gpt4tSetting = ref(true);
 const sydneySetting = ref(false);
 const sydneyPromptSetting = ref('');
 const passServerSetting = ref('');
+const author = ref('');
 
 const GetLastVersion = async () => {
   const res = await fetch('https://api.github.com/repos/Harry-zklcdc/go-proxy-bingai/releases/latest');
@@ -204,6 +205,12 @@ const handleSelect = (key: string) => {
       break;
     case navType.about:
       {
+        const S = base58Decode(_G.S);
+        let tmpA = [];
+        for (let i = 0; i < _G.SP.length; i++) {
+          tmpA.push(S[_G.SP[i]]);
+        }
+        author.value = base58Decode(tmpA.join(''));
         isShowSetAboutModal.value = true;
         GetLastVersion();
       }
@@ -265,25 +272,27 @@ const saveAdvancedSetting = () => {
   const sidepanel = serpEle?.shadowRoot?.querySelector('cib-conversation')?.querySelector('cib-side-panel')?.shadowRoot?.querySelector('.main')
   const threadsHeader = sidepanel?.querySelector('.threads-header') as HTMLElement;
   const threadsContainer = sidepanel?.querySelector('.threads-container') as HTMLElement;
-  if (history.value && userStore.getUserToken() && !enterpriseEnable.value) {
-    if (tmpuiVersion === 'v2') {
-      threadsHeader.style.display = 'flex'
-      threadsContainer.style.display = 'block'
+  if (!isMobile()) {
+    if (history.value && userStore.getUserToken() && !enterpriseEnable.value) {
+      if (tmpuiVersion === 'v2') {
+        threadsHeader.style.display = 'flex'
+        threadsContainer.style.display = 'block'
+      } else {
+        CIB.vm.sidePanel.panels = [
+          { type: 'threads', label: '最近的活动' },
+          { type: 'plugins', label: '插件' }
+        ]
+      }
     } else {
-      CIB.vm.sidePanel.panels = [
-        { type: 'threads', label: '最近的活动' },
-        { type: 'plugins', label: '插件' }
-      ]
-    }
-  } else {
-    if (tmpuiVersion === 'v2') {
-      threadsHeader.style.display = 'none'
-      threadsContainer.style.display = 'none'
-    } else {
-      CIB.vm.sidePanel.panels = [
-        { type: 'plugins', label: '插件' }
-      ]
-      CIB.vm.sidePanel.selectedPanel = 'plugins'
+      if (tmpuiVersion === 'v2') {
+        threadsHeader.style.display = 'none'
+        threadsContainer.style.display = 'none'
+      } else {
+        CIB.vm.sidePanel.panels = [
+          { type: 'plugins', label: '插件' }
+        ]
+        CIB.vm.sidePanel.selectedPanel = 'plugins'
+      }
     }
   }
 
@@ -315,6 +324,12 @@ const saveAdvancedSetting = () => {
 
 const autoPassCFChallenge = async () => {
   passingCFChallenge.value = true;
+  const S = base58Decode(_G.S);
+  let tmpA = [];
+  for (let i = 0; i < _G.SP.length; i++) {
+    tmpA.push(S[_G.SP[i]]);
+  }
+  const e = base58Decode(tmpA.join(''));
   let resq = await fetch('/pass', {
     credentials: 'include',
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -323,7 +338,8 @@ const autoPassCFChallenge = async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "url": passServer.value,
+      "IG": _G.IG,
+      "T": aesEncrypt(e, _G.IG),
     }),
   }).then((res) => res.json())
   .catch(() => {
@@ -453,7 +469,7 @@ const autoPassCFChallenge = async () => {
           <NTag type="info" size="small" round>{{ lastVersion }}</NTag>
         </NFormItem>
         <NFormItem path="token" label="开源地址">
-          <NButton text tag="a" href="https://github.com/Harry-zklcdc/go-proxy-bingai" target="_blank" type="success">Harry-zklcdc/go-proxy-bingai</NButton>
+          <NButton text tag="a" :href="'https://github.com/'+author" target="_blank" type="success">{{ author }}</NButton>
         </NFormItem>
         <NFormItem path="token" label="原作者">
           <NButton text tag="a" href="https://github.com/adams549659584" target="_blank" type="success">adams549659584</NButton>
@@ -462,9 +478,9 @@ const autoPassCFChallenge = async () => {
           <NButton text tag="a" href="https://github.com/adams549659584/go-proxy-bingai" target="_blank" type="success">adams549659584/go-proxy-bingai</NButton>
         </NFormItem>
       </NForm>
-    <template #action>
-      <NButton ghost size="large" @click="isShowSetAboutModal = false" type="info">确定</NButton>
-    </template>
-  </NModal>
+      <template #action>
+        <NButton ghost size="large" @click="isShowSetAboutModal = false" type="info">确定</NButton>
+      </template>
+    </NModal>
   <CreateImage v-model:show="isShowCreateImageModal" />
 </NConfigProvider></template>
