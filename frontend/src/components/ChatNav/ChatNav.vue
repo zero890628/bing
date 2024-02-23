@@ -157,6 +157,12 @@ const handleSelect = async (key: string) => {
           key: navType.notebook,
           label: '笔记本',
         };
+        const prjupyIndex = CIB.config.sydney.request.optionsSets.indexOf('prjupy');
+        const galileoIndex = CIB.config.sydney.request.optionsSets.indexOf('clgalileo');
+        CIB.config.sydney.request.optionsSets = CIB.config.sydney.request.optionsSets.slice(0, prjupyIndex);
+        if (galileoIndex > -1) {
+          CIB.config.sydney.request.optionsSets[galileoIndex] = 'galileo';
+        }
         if (uiVersion.value == 'v3') {
           await sleep(25);
           await ChatHomeScreen.init('/turing/api/suggestions/v2/zeroinputstarter');
@@ -187,6 +193,12 @@ const handleSelect = async (key: string) => {
     case navType.notebook:
       {
         CIB.showNotebook();
+        const galileoIndex = CIB.config.sydney.request.optionsSets.indexOf('galileo');
+        console.log(galileoIndex)
+        if (galileoIndex > -1) {
+          CIB.config.sydney.request.optionsSets[galileoIndex] = 'clgalileo';
+        }
+        CIB.config.sydney.request.optionsSets.push('prjupy', 'uprofdeuv1', 'uprofupdv2', 'gndlogcf');
         navConfigs.value[1] = {
           key: navType.chat,
           label: '聊天',
@@ -336,7 +348,9 @@ const saveAdvancedSetting = () => {
   sydneyEnable.value = sydneySetting.value;
   sydneyPrompt.value = sydneyPromptSetting.value;
   uiVersion.value = uiVersionSetting.value;
-  userStore.setPassServer(passServerSetting.value)
+  if (passServerSetting.value && passServerSetting.value.startsWith('http')) {
+    userStore.setPassServer(passServerSetting.value)
+  }
 
   const serpEle = document.querySelector('cib-serp');
   const sidepanel = serpEle?.shadowRoot?.querySelector('cib-conversation')?.querySelector('cib-side-panel')?.shadowRoot?.querySelector('.main')
