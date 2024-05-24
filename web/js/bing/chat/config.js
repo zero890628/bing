@@ -504,7 +504,7 @@ _w['_sydConvTranslation'] = {
   feedbackTranslateButtonAriaLabel: 'Translate',
   feedbackTranslateSeeOriginalButtonAriaLabel: 'See Original',
   feedbackTranslateUserInfoText: 'Translated to display language ({0}). Click on the icon to see original',
-  actionBarPlaceholder: '有问题尽管问我...（Shift + Enter = 换行，"/" 触发提示词）',
+  actionBarPlaceholder: '有问题尽管问我...',
   actionBarLongPlaceholder: '询问我任何内容或键入/添加人员、文件等',
   actionBarPlaceholderForGPTBuilder: '消息 Copilot GPT 生成器...',
   actionBarNotebookPlaceholder: '你有什么想法?编写与 Copilot 协作的详细提示。使用 Shift+Enter 提交消息。',
